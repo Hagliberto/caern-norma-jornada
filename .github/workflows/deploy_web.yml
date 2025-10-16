@@ -3,7 +3,13 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - main  # Altere para 'master' se for sua branch principal
+      - main
+
+# ADICIONE ESTE BLOCO:
+permissions:
+  contents: write # Permite que o Action escreva e crie a branch gh-pages
+  pages: write    # Permite acesso à API de Pages (moderno)
+  id-token: write # Necessário para o deploy moderno
 
 jobs:
   build_and_deploy:
