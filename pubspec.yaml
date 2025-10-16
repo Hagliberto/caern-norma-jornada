@@ -39,3 +39,7 @@ flutter:
   assets:
     - assets/norma_data_completa.json
     - assets/image.png
+
+# Adicione esta seção no final do pubspec.yaml para resolver o conflito de 'collection'
+dependency_overrides:
+  collection: ^1.18.0
