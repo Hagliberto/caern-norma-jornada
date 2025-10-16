@@ -1,0 +1,44 @@
+name: caern_norma_jornada
+description: Uma aplicação Flutter para visualização da Norma de Jornada de Trabalho da CAERN.
+
+# A versão deve ser incrementada ao publicar ou fazer alterações significativas
+version: 1.0.2+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0' # Use uma versão do Dart SDK moderna
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Pacotes necessários para a funcionalidade:
+  flutter_html: ^3.0.0
+  provider: ^6.1.2 
+  shared_preferences: ^2.2.2
+  package_info_plus: ^5.0.1 # para mostrar a versão na tela inicial
+  
+  # PLUGINS DE PLATAFORMA (Movidos para dependencies para resolver o Channel Error)
+  url_launcher: ^6.3.0
+  share_plus: ^7.2.2 # Mantido, apesar de estarmos usando URL Scheme, é útil como fallback.
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0 # Linter moderno para boas práticas
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/image.png"
+  min_sdk_android: 21 # ou a mínima suportada
+
+
+
+# Configurações específicas do Flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/norma_data_completa.json
+    - assets/image.png

@@ -1,0 +1,47 @@
+name: Deploy Flutter Web to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Altere para 'master' se for sua branch principal
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Checkout do Código
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Configurar o Ambiente Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          # Versão do Dart e Flutter (opcional, mas bom ter)
+          flutter-version: '3.22.x'
+          cache: true
+
+      # 3. Rodar flutter pub get para dependências (incluindo package_info_plus)
+      - name: Get dependencies
+        run: flutter pub get
+
+      # 4. Construir o Aplicativo Web
+      - name: Build Web
+        run: flutter build web --release --base-href /caern-norma-jornada/
+        # IMPORTANTE: Altere "/caern-norma-jornada/" para o nome do seu repositório.
+        # Se for um User/Org Pages (repositório USERNAME.github.io), use apenas "/"
+
+      # 5. Configurar o Deploy para a branch gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # É necessário ter o token (GITHUB_TOKEN) para que o Action possa escrever na branch gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Diretório onde o build web foi gerado
+          publish_dir: ./build/web
+          # Força o push na branch 'gh-pages'
+          force_orphan: true
+          # Mensagem do commit
+          commit_message: Deploy do Flutter Web para GH Pages [skip ci]
